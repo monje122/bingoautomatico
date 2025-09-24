@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bingo 75 • En vivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div class="logo">Bingo 75</div>
+      <span class="tag">En vivo cada 3 min</span>
+    </div>
+    <div class="row" id="userArea">
+      <button id="btnSignIn">Iniciar sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- LADO IZQUIERDO: sesión + créditos + compra -->
+    <section class="card" id="panelUser">
+      <div class="section">
+        <h3>Tu cuenta</h3>
+        <div id="accountBox" class="grid">
+          <div class="pill"><span>Estado:</span><strong id="authState">Desconectado</strong></div>
+          <div class="pill"><span>Créditos:</span><strong id="credits">0</strong></div>
+          <div class="pill"><span>Roles:</span><strong id="roles">-</strong></div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Recarga</h3>
+        <div class="grid cols-2">
+          <input id="amountTopup" type="number" min="1" step="1" placeholder="Monto a recargar"/>
+          <button id="btnTopup">Solicitar recarga</button>
+        </div>
+        <div class="small">Una vez que un admin apruebe, los créditos se acreditan automáticamente.</div>
+        <div id="topupMsg" class="small"></div>
+      </div>
+      <div class="section">
+        <h3>Comprar cartones</h3>
+        <div class="grid cols-3">
+          <div>
+            <label class="small">Precio/cartón</label>
+            <div class="price" id="pricePerCard">1</div>
+          </div>
+          <div>
+            <label class="small">Cantidad</label>
+            <input id="qty" type="number" value="1" min="1" max="6"/>
+          </div>
+          <div class="row" style="justify-content:flex-end;align-items:end">
+            <button id="btnBuy">Comprar</button>
+          </div>
+        </div>
+        <div class="small">Los cartones comprados entran al próximo juego en curso.</div>
+        <div id="buyMsg" class="small"></div>
+      </div>
+      <div class="section admin hidden" id="adminPanel">
+        <h3>Panel Admin</h3>
+        <div class="small">10% de comisión automática del pozo.</div>
+        <div class="grid cols-2" style="margin-top:8px">
+          <button class="ghost" id="btnListTopups">Ver recargas pendientes</button>
+          <button class="ghost" id="btnApproveAll">Aprobar todas</button>
+        </div>
+        <div id="adminOutput" class="small mono" style="margin-top:8px"></div>
+      </div>
+    </section>
+
+    <!-- LADO DERECHO: sala en vivo -->
+    <section class="card" id="panelLive">
+      <div class="section">
+        <h3>Próxima partida</h3>
+        <div class="row" style="justify-content:space-between">
+          <div>
+            <div class="small">Comienza en</div>
+            <div class="countdown" id="countdown">—</div>
+          </div>
+          <div>
+            <div class="small">Juego actual</div>
+            <div class="pill"><span>ID:</span><strong id="gameId">—</strong></div>
+          </div>
+          <div>
+            <div class="small">Pozo</div>
+            <div class="pill"><span>💰</span><strong id="pot">0</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Bolas</h3>
+        <div class="balls" id="balls"></div>
+      </div>
+      <div class="section">
+        <h3>Tus cartones</h3>
+        <div id="boards" class="grid cols-2"></div>
+        <div class="row" style="justify-content:flex-end;margin-top:10px">
+          <button id="btnClaim" class="ghost" disabled>¡Cantar BINGO!</button>
+        </div>
+        <div class="small" id="claimMsg"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Hecho con Supabase. Sube este archivo a GitHub Pages y coloca tus claves públicas.
+    <br/>
+    <a class="link" href="#setup">Ver esquema SQL & políticas (abajo en comentarios del archivo)</a>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
+
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
